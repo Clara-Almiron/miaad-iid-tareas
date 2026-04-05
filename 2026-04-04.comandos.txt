@@ -1,0 +1,163 @@
+    1  exit
+    2  ls
+    3  ls -a
+    4  ls
+    5  hostnamectl
+    6  sudo apt update
+    7  apt install apt-transport-https ca-certificates curl gnupg lsb-release
+    8  sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release
+    9  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+   10  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   11  sudo apt update
+   12  apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+   13  sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+   14  docker ps
+   15  sudo usermod -aG docker $USER
+   16  abctl local install
+   17  ping 8.8.8.8
+   18  nslookup airbytehq.github.io
+   19  curl -I https://airbytehq.github.io/charts/index.yaml
+   20  ping airbytehq.github.io
+   21  abctl local install
+   22  ping airbytehq.github.io
+   23  abctl local install
+   24  nslookup airbytehq.github.io
+   25  curl -I https://airbytehq.github.io/charts/index.yaml
+   26  env | grep -i proxy
+   27  nslookup airbytehq.github.io
+   28  sudo apt update
+   29  sudo apt install dnsutils
+   30  apt install bind9-dnsutils
+   31  sudo apt install bind9-dnsutils
+   32  nslookup airbytehq.github.io
+   33  curl -Iv https://airbytehq.github.io/charts/index.yaml
+   34  env | grep -i proxy
+   35  curl -I https://airbytehq.github.io/charts/index.yaml
+   36  abctl local uninstall
+   37  rm -rf ~/.airbyte
+   38  clara@NB-PTI-4PBRBS3:~$ rm -rf ~/.airbyte
+   39  sudo rm -rf ~/.airbyte
+   40  kind delete cluster --name airbyte-abctl
+   41  sudo kind delete cluster --name airbyte-abctl
+   42  kind delete cluster --name airbyte-abctl
+   43  abctl local uninstall
+   44  sudo rm -rf ~/.airbyte
+   45  abctl local install
+   46  abctl version
+   47  abctl local install
+   48  sudo rm -rf /home/clara/.airbyte
+   49  abctl local install
+   50  abctl local credentials
+   51  ping pokeapi.co
+   52  ping pokeapi
+   53  ping pokeapi.co
+   54  docker ps
+   55  telnet localhost 8000
+   56  docker stop airbyte-abctl-control-plane
+   57  docker start airbyte-abctl-control-plane
+   58  sudo reboot
+   59  docker ps
+   60  ping pokeapi.co
+   61  docker ps
+   62  ping pokeapi.co
+   63  abctl local credentials
+   64  cd /mnt/c/dbt_duckdb
+   65  cd
+   66  mkdir
+   67  mkdir dbt_duckdb
+   68  cd dbt_duckdb
+   69  python --version
+   70  python3
+   71  sudo apt update
+   72  sudo apt install -y python3 python3-pip python3-venv
+   73  python3 --version
+   74  pip3 --version
+   75  python -m venv dbt-env
+   76  python-is-python3
+   77  sudo apt install python-is-python3
+   78  python -m venv dbt-env
+   79  source dbt-env/bin/activate
+   80  python -m pip install --upgrade pip
+   81  pip install dbt-duckdb
+   82  dbt --version
+   83  dbt init mi_proyecto_dbt
+   84  tree mi_proyecto_dbt/
+   85  sudo apt install tree
+   86  tree mi_proyecto_dbt/
+   87  history
+   88  history > 2026_03_28_comandos.txt
+   89  exit
+   90  docker ps
+   91  ping 8.8.8.8
+   92  docker ps
+   93  ping 8.8.8.8
+   94  ping pokeapi.co
+   95  abctl local credentials
+   96  source dbt-env/bin/activate
+   97  cd ~
+   98  find . -type d -name "dbt-env" 2>/dev/null
+   99  find . -type d -name "mi_proyecto_dbt" 2>/dev/null
+  100  source ~/dbt_duckdb/dbt-env/bin/activate
+  101  dbt --version
+  102  cd ~/dbt_duckdb/mi_proyecto_dbt
+  103  pwd
+  104  cat dbt_project.yml
+  105  ls -la ~/.dbt
+  106  cat ~/.dbt/profiles.yml
+  107  nano ~/.dbt/profiles.yml
+  108  export MOTHERDUCK_TOKEN="tu_token_aqui"
+  109  export MOTHERDUCK_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsYXJpYWxtaUBnbWFpbC5jb20iLCJtZFJlZ2lvbiI6ImF3cy11cy1lYXN0LTEiLCJzZXNzaW9uIjoiY2xhcmlhbG1pLmdtYWlsLmNvbSIsInBhdCI6Ii1OdmNTM3JkQlZQVkNaSXJLSUtJNTZES3lWNkZBN1dGTTZHMmw3bllIZ0UiLCJ1c2VySWQiOiIwYzM3NGQ4Mi03MjU3LTQyM2YtYWIwZS0wMTBlYWFkMjMxYmIiLCJpc3MiOiJtZF9wYXQiLCJyZWFkT25seSI6ZmFsc2UsInRva2VuVHlwZSI6InJlYWRfd3JpdGUiLCJpYXQiOjE3NzM0NDE3ODF9.p3iIO3WBl_ShTypFfm9elNUtEA2fNaPrtHXbOBfgMXc"
+  110  echo $MOTHERDUCK_TOKEN
+  111  dbt debug
+  112  cat dbt_project.yml
+  113  cat ~/.dbt/profiles.yml
+  114  nano dbt_project.yml
+  115  mkdir -p models/staging models/intermediate models/marts
+  116  find models -maxdepth 2 -type d
+  117  cat ~/.dbt/profiles.yml
+  118  cat dbt_project.yml
+  119  mkdir -p models/staging models/intermediate models/marts
+  120  find models -maxdepth 2 -type d
+  121  abctl local credentials
+  122  git status
+  123  git init
+  124  ls
+  125  ls -a
+  126  cat .gitignore
+  127  cd ..
+  128  ls
+  129  git status
+  130  cd mi_proyecto_dbt
+  131  git status
+  132  du -sh *
+  133  git add -a
+  134  git add -A
+  135  git status
+  136  git commit -m "Primer comisionamiento"
+  137  ls
+  138  git status
+  139  git config --global user.email "clarialmi@gmail.com"
+  140  git config --global user.name "Clara Almiron"
+  141  git commit -m "Primer comisionamiento"
+  142  git status
+  143  ls ~/.ssh
+  144  ssh-keygen -t ed25519 -C "clarialmi@gmail.com"
+  145  eval "$(ssh-agent -s)"
+  146  ssh-add ~/.ssh/id_ed25519
+  147  ls ~/.ssh
+  148  cat ~/.ssh/id_ed25519.pub
+  149  git status
+  150  git remote add origin https://github.com/Clara-Almiron/miaad-iid-tareas.git
+  151  git branch -M main
+  152  git push -u origin main
+  153  git remote origin set-url git@github.com:Clara-Almiron/miaad-iid-tareas.git
+  154  git remote set-url origin git@github.com:Clara-Almiron/miaad-iid-tareas.git
+  155  git push -u origin main
+  156  history -w
+  157  history
+  158  history > 2026_04_02_comandos.txt
+  159  find . -iname "*example*"
+  160  curl
+  161  curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  162  history
+  163  history > 2026-04-04.comandos.txt
