@@ -1,0 +1,88 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Fuente raw en MotherDuck con el payload del pronostico en una sola tabla.
+    schema: weather
+    tables:
+      - name: weather
+        description: Tabla raw unica con el payload del pronostico del clima.
+        columns:
+          - name: _airbyte_raw_id
+            tests:
+              - not_null
+              - unique
+
+models:
+  - name: stg_weather_forecast_raw
+    description: Normaliza la tabla raw unica y extrae atributos desde columnas JSON.
+    columns:
+      - name: _airbyte_raw_id
+        tests:
+          - not_null
+          - unique
+      - name: datetime_id
+        tests:
+          - not_null
+      - name: forecast_datetime
+        tests:
+          - not_null
+
+  - name: stg_dim_datetime
+    description: Dimension de fecha y hora derivada desde la tabla raw.
+    columns:
+      - name: datetime_id
+        tests:
+          - not_null
+          - unique
+      - name: forecast_datetime
+        tests:
+          - not_null
+
+  - name: stg_dim_weather_condition
+    description: Catalogo de condiciones meteorologicas derivado desde la tabla raw.
+    columns:
+      - name: weather_condition_sk
+        tests:
+          - not_null
+          - unique
+      - name: weather_api_id
+        tests:
+          - not_null
+
+  - name: stg_dim_day_period
+    description: Catalogo del periodo del dia derivado desde la tabla raw.
+    columns:
+      - name: pod_code
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_fct_weather_forecast
+    description: Hecho de pronostico derivado desde la tabla raw ya normalizada.
+    columns:
+      - name: forecast_id
+        tests:
+          - not_null
+          - unique
+      - name: datetime_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_dim_datetime')
+                field: datetime_id
+      - name: weather_condition_sk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_dim_weather_condition')
+                field: weather_condition_sk
+      - name: pod_code
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_dim_day_period')
+                field: pod_code

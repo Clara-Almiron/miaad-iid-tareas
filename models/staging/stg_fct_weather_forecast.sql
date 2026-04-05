@@ -1,0 +1,23 @@
+select
+  forecast_id,
+  datetime_id,
+  weather_condition_sk,
+  pod_code,
+  pop,
+  visibility_m,
+  temp_c,
+  feels_like_c,
+  temp_min_c,
+  temp_max_c,
+  temp_kf,
+  pressure_hpa,
+  sea_level_hpa,
+  ground_level_hpa,
+  humidity_pct,
+  wind_speed_ms,
+  wind_deg,
+  wind_gust_ms,
+  cloudiness_pct,
+  rain_3h_mm,
+  airbyte_extracted_at
+from {{ ref('stg_weather_forecast_raw') }}

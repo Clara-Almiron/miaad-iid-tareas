@@ -1,0 +1,54 @@
+// Modelo analitico final derivado desde la tabla raw unica weather.weather en MotherDuck.
+// Para esta tarea academica, las claves derivadas se modelan como uint64.
+
+Table dim_datetime {
+  datetime_id bigint [pk]
+  forecast_datetime timestamp
+  forecast_date date
+  forecast_hour int
+  day_name varchar
+  month_number int
+  month_name varchar
+  year int
+  dt_txt varchar
+}
+
+Table dim_weather_condition {
+  weather_condition_sk uint64 [pk]
+  weather_api_id int
+  weather_group varchar
+  weather_description varchar
+  weather_icon varchar
+}
+
+Table dim_day_period {
+  pod_code varchar [pk]
+  pod_description varchar
+}
+
+Table fct_weather_forecast {
+  forecast_id uint64 [pk]
+  datetime_id bigint [not null, ref: > dim_datetime.datetime_id]
+  weather_condition_sk uint64 [not null, ref: > dim_weather_condition.weather_condition_sk]
+  pod_code varchar [not null, ref: > dim_day_period.pod_code]
+
+  pop decimal
+  visibility_m int
+  temp_c decimal
+  feels_like_c decimal
+  temp_min_c decimal
+  temp_max_c decimal
+  temp_kf decimal
+  pressure_hpa int
+  sea_level_hpa int
+  ground_level_hpa int
+  humidity_pct int
+  wind_speed_ms decimal
+  wind_deg int
+  wind_gust_ms decimal
+  cloudiness_pct int
+  rain_3h_mm decimal
+
+  _airbyte_raw_id varchar
+  airbyte_extracted_at timestamp
+}

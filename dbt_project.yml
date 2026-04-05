@@ -32,7 +32,3 @@ models:
   mi_proyecto_dbt:
     staging:
       +materialized: view
-    intermediate:
-      +materialized: view
-    marts:
-      +materialized: table
