@@ -12,6 +12,17 @@ sources:
             tests:
               - not_null
               - unique
+  - name: raw_news
+    description: Fuente raw en MotherDuck con articulos obtenidos desde NewsAPI.
+    schema: news
+    tables:
+      - name: newsapi
+        description: Tabla raw unica con articulos y metadatos de NewsAPI.
+        columns:
+          - name: _airbyte_raw_id
+            tests:
+              - not_null
+              - unique
 
 models:
   - name: stg_weather_forecast_raw
@@ -86,3 +97,102 @@ models:
               arguments:
                 to: ref('stg_dim_day_period')
                 field: pod_code
+
+  - name: stg_newsapi_raw
+    description: Normaliza la tabla raw unica de NewsAPI y extrae atributos base.
+    columns:
+      - name: _airbyte_raw_id
+        tests:
+          - not_null
+          - unique
+      - name: article_sk
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_newsapi_dim_article
+    description: Dimension de articulo derivada desde la tabla raw de NewsAPI.
+    columns:
+      - name: article_sk
+        tests:
+          - not_null
+          - unique
+      - name: url
+        tests:
+          - not_null
+
+  - name: stg_newsapi_dim_source
+    description: Dimension de fuente derivada desde la tabla raw de NewsAPI.
+    columns:
+      - name: source_sk
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_newsapi_dim_author
+    description: Dimension de autor derivada desde la tabla raw de NewsAPI.
+    columns:
+      - name: author_sk
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_newsapi_dim_published_datetime
+    description: Dimension de fecha y hora de publicacion derivada desde la tabla raw de NewsAPI.
+    columns:
+      - name: published_datetime_sk
+        tests:
+          - not_null
+          - unique
+      - name: published_at
+        tests:
+          - not_null
+
+  - name: stg_newsapi_dim_feed_type
+    description: Dimension de tipo de feed derivada desde la tabla raw de NewsAPI.
+    columns:
+      - name: feed_type_sk
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_newsapi_fct_news_articles
+    description: Hecho de articulos derivado desde la tabla raw de NewsAPI.
+    columns:
+      - name: article_event_sk
+        tests:
+          - not_null
+          - unique
+      - name: article_sk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_newsapi_dim_article')
+                field: article_sk
+      - name: source_sk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_newsapi_dim_source')
+                field: source_sk
+      - name: author_sk
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_newsapi_dim_author')
+                field: author_sk
+      - name: published_datetime_sk
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_newsapi_dim_published_datetime')
+                field: published_datetime_sk
+      - name: feed_type_sk
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_newsapi_dim_feed_type')
+                field: feed_type_sk

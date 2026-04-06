@@ -1,0 +1,45 @@
+Table dim_article {
+  article_sk int [pk]
+  url varchar
+  title varchar
+  airbyte_raw_id varchar
+}
+
+Table dim_source {
+  source_sk int [pk]
+  source_api_id varchar
+  source_name varchar
+}
+
+Table dim_author {
+  author_sk int [pk]
+  author_name varchar
+}
+
+Table dim_published_datetime {
+  published_datetime_sk int [pk]
+  published_at timestamp
+  published_date date
+  published_year int
+  published_month int
+  published_day int
+  published_hour int
+  day_of_week varchar
+}
+
+Table dim_feed_type {
+  feed_type_sk int [pk]
+  feed_type varchar
+}
+
+Table fct_news_articles {
+  article_event_sk int [pk]
+  article_sk int [not null, ref: > dim_article.article_sk]
+  source_sk int [not null, ref: > dim_source.source_sk]
+  author_sk int [ref: > dim_author.author_sk]
+  published_datetime_sk int [ref: > dim_published_datetime.published_datetime_sk]
+  feed_type_sk int [not null, ref: > dim_feed_type.feed_type_sk]
+
+  article_count int
+  airbyte_extracted_at timestamp
+}
