@@ -14,9 +14,9 @@ sources:
               - unique
   - name: raw_news
     description: Fuente raw en MotherDuck con articulos obtenidos desde NewsAPI.
-    schema: news
+    schema: newsapi
     tables:
-      - name: newsapi
+      - name: everything
         description: Tabla raw unica con articulos y metadatos de NewsAPI.
         columns:
           - name: _airbyte_raw_id
@@ -148,14 +148,6 @@ models:
         tests:
           - not_null
 
-  - name: stg_newsapi_dim_feed_type
-    description: Dimension de tipo de feed derivada desde la tabla raw de NewsAPI.
-    columns:
-      - name: feed_type_sk
-        tests:
-          - not_null
-          - unique
-
   - name: stg_newsapi_fct_news_articles
     description: Hecho de articulos derivado desde la tabla raw de NewsAPI.
     columns:
@@ -189,10 +181,3 @@ models:
               arguments:
                 to: ref('stg_newsapi_dim_published_datetime')
                 field: published_datetime_sk
-      - name: feed_type_sk
-        tests:
-          - not_null
-          - relationships:
-              arguments:
-                to: ref('stg_newsapi_dim_feed_type')
-                field: feed_type_sk

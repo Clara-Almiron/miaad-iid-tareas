@@ -4,7 +4,6 @@ select
   source_sk,
   author_sk,
   published_datetime_sk,
-  feed_type_sk,
   article_count,
   airbyte_extracted_at
 from {{ ref('stg_newsapi_raw') }}

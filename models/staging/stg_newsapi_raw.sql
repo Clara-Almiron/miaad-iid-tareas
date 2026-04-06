@@ -4,12 +4,11 @@ with source_data as (
       author,
       title,
       url,
-      "publishedAt" as published_at_raw,
-      feed_type,
+      publishedat as published_at_raw,
       _airbyte_raw_id,
       _airbyte_extracted_at,
       _airbyte_meta
-    from {{ source('raw_news', 'newsapi') }}
+    from {{ source('raw_news', 'everything') }}
 )
 
 select
@@ -22,7 +21,6 @@ select
   ) as source_sk,
   cast(hash(coalesce(author, '__unknown__')) as ubigint) as author_sk,
   cast(hash(cast(published_at_raw as timestamp)) as ubigint) as published_datetime_sk,
-  cast(hash(coalesce(feed_type, 'top_headlines')) as ubigint) as feed_type_sk,
   cast(hash(_airbyte_raw_id) as ubigint) as article_event_sk,
   url,
   title,
@@ -37,7 +35,6 @@ select
   extract(day from cast(published_at_raw as timestamp)) as published_day,
   extract(hour from cast(published_at_raw as timestamp)) as published_hour,
   strftime(cast(published_at_raw as timestamp), '%A') as day_of_week,
-  coalesce(feed_type, 'top_headlines') as feed_type,
   1 as article_count,
   _airbyte_raw_id,
   _airbyte_extracted_at as airbyte_extracted_at,
