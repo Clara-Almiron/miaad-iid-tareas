@@ -47,13 +47,13 @@ Segun la clase 5, el objetivo es construir un proyecto dbt con las 3 capas `stag
 - Se implemento el modelo intermediate `int_newsapi_articles_enriched`.
 - Se implemento el mart final `obt_newsapi_articles`.
 - Se generaron y guardaron capturas del DAG en `docs/`.
+- Se ejecuto `dbt build` con resultado exitoso: `PASS=68`, `WARN=0`, `ERROR=0`, `SKIP=0`.
 - El repositorio Git esta limpio y con cambios confirmados.
 - Ya existen artefactos de documentacion en `target/`, lo que indica que dbt genero metadatos del proyecto.
 
 ## Pendientes prioritarios
 
-1. Reejecutar `dbt build` completo como validacion final despues del ultimo ajuste en tests.
-2. Verificar si se desea incluir una breve explicacion de decisiones de modelado en `README.md` o en el entregable.
+1. Verificar si se desea incluir una breve explicacion de decisiones de modelado en `README.md` o en el entregable.
 
 ## Comandos sugeridos
 
