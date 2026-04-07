@@ -4,7 +4,7 @@ Proyecto evaluado: `mi_proyecto_dbt`
 
 ## Estado general
 
-Avance actual: 4 de 6 puntos del entregable completos o resueltos de forma funcional.
+Avance actual: 6 de 6 puntos del entregable completos.
 Segun la clase 5, el objetivo es construir un proyecto dbt con las 3 capas `staging -> intermediate -> marts`, usar `source()` y `ref()`, y generar el DAG con `dbt docs`.
 
 ## Checklist del entregable
@@ -18,22 +18,23 @@ Segun la clase 5, el objetivo es construir un proyecto dbt con las 3 capas `stag
   `models/staging/stg_newsapi_raw.sql`
   Observacion: el proyecto incluso supera el minimo, porque ya tiene varios modelos staging derivados por cada source.
 
-- [ ] Al menos 1 modelo intermediate
-  Estado: pendiente.
-  Observacion: existe `models/intermediate/`, pero no contiene modelos.
+- [x] Al menos 1 modelo intermediate
+  Evidencia:
+  `models/intermediate/int_newsapi_articles_enriched.sql`
+  `models/intermediate/schema.yml`
 
-- [ ] Al menos 1 modelo mart (dimensional u OBT)
-  Estado: pendiente.
-  Observacion: existe `models/marts/`, pero no contiene modelos.
+- [x] Al menos 1 modelo mart (dimensional u OBT)
+  Evidencia:
+  `models/marts/obt_newsapi_articles.sql`
+  `models/marts/schema.yml`
 
 - [x] Archivo `_sources.yml` configurado
-  Estado: resuelto funcionalmente, pero no con el nombre literal pedido.
-  Evidencia: `models/staging/schema.yml` define los sources `weather.weather` y `newsapi.everything`.
-  Ajuste recomendado: separar esos `sources` a `models/staging/_sources.yml`, ya que la clase muestra esa convencion de forma explicita.
+  Evidencia: `models/staging/_sources.yml` define los sources `weather.weather` y `newsapi.everything`.
 
-- [ ] Captura del DAG generado por dbt docs
-  Estado: pendiente.
-  Observacion: existen artefactos de dbt en `target/`, pero no hay captura en `docs/`.
+- [x] Captura del DAG generado por dbt docs
+  Evidencia:
+  `docs/Captura_DAG_generado_newsapi.PNG`
+  `docs/Captura_DAG_generado_weather.png`
 
 ## Trabajo realizado
 
@@ -42,15 +43,17 @@ Segun la clase 5, el objetivo es construir un proyecto dbt con las 3 capas `stag
 - Se implemento staging para `newsapi`.
 - Se ajusto el modelo estrella de `newsapi` para alinearlo con `newsapi.everything`.
 - Se ejecuto `dbt run` con exito para los modelos staging.
+- Se separaron los sources en `models/staging/_sources.yml`.
+- Se implemento el modelo intermediate `int_newsapi_articles_enriched`.
+- Se implemento el mart final `obt_newsapi_articles`.
+- Se generaron y guardaron capturas del DAG en `docs/`.
 - El repositorio Git esta limpio y con cambios confirmados.
 - Ya existen artefactos de documentacion en `target/`, lo que indica que dbt genero metadatos del proyecto.
 
 ## Pendientes prioritarios
 
-1. Crear al menos un modelo `intermediate`.
-2. Crear al menos un modelo `mart`.
-3. Mover la definicion de `sources` a un archivo `_sources.yml`.
-4. Generar `dbt docs`, abrir el DAG y guardar una captura en `docs/`.
+1. Reejecutar `dbt build` completo como validacion final despues del ultimo ajuste en tests.
+2. Verificar si se desea incluir una breve explicacion de decisiones de modelado en `README.md` o en el entregable.
 
 ## Comandos sugeridos
 
