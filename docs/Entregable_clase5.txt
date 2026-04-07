@@ -1,0 +1,8 @@
+Entregable
+Repositorio Git (GitHub/GitLab) con:
+1.Proyecto dbt inicializado y configurado
+2.Al menos 2 modelos staging (uno por cada source)
+3.Al menos 1 modelo intermediate
+4.Al menos 1 modelo mart (dimensional u OBT)
+5.Archivo _sources.yml configurado
+6.Captura del DAG generado por dbt docs
