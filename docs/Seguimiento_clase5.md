@@ -51,10 +51,6 @@ Segun la clase 5, el objetivo es construir un proyecto dbt con las 3 capas `stag
 - El repositorio Git esta limpio y con cambios confirmados.
 - Ya existen artefactos de documentacion en `target/`, lo que indica que dbt genero metadatos del proyecto.
 
-## Pendientes prioritarios
-
-1. Verificar si se desea incluir una breve explicacion de decisiones de modelado en `README.md` o en el entregable.
-
 ## Comandos sugeridos
 
 ```bash
