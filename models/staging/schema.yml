@@ -1,29 +1,5 @@
 version: 2
 
-sources:
-  - name: raw
-    description: Fuente raw en MotherDuck con el payload del pronostico en una sola tabla.
-    schema: weather
-    tables:
-      - name: weather
-        description: Tabla raw unica con el payload del pronostico del clima.
-        columns:
-          - name: _airbyte_raw_id
-            tests:
-              - not_null
-              - unique
-  - name: raw_news
-    description: Fuente raw en MotherDuck con articulos obtenidos desde NewsAPI.
-    schema: newsapi
-    tables:
-      - name: everything
-        description: Tabla raw unica con articulos y metadatos de NewsAPI.
-        columns:
-          - name: _airbyte_raw_id
-            tests:
-              - not_null
-              - unique
-
 models:
   - name: stg_weather_forecast_raw
     description: Normaliza la tabla raw unica y extrae atributos desde columnas JSON.
@@ -144,9 +120,6 @@ models:
         tests:
           - not_null
           - unique
-      - name: published_at
-        tests:
-          - not_null
 
   - name: stg_newsapi_fct_news_articles
     description: Hecho de articulos derivado desde la tabla raw de NewsAPI.

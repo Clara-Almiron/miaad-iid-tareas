@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: obt_newsapi_articles
+    description: One Big Table final para analisis de articulos de NewsAPI.
+    columns:
+      - name: article_event_sk
+        tests:
+          - not_null
+          - unique
+      - name: title
+        tests:
+          - not_null
+      - name: source_name
+        tests:
+          - not_null
+      - name: publication_period
+        tests:
+          - not_null

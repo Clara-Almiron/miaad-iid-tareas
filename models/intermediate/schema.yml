@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: int_newsapi_articles_enriched
+    description: Modelo intermedio que une el hecho de noticias con sus dimensiones para analisis posterior.
+    columns:
+      - name: article_event_sk
+        tests:
+          - not_null
+          - unique
+      - name: article_sk
+        tests:
+          - not_null
+      - name: title
+        tests:
+          - not_null
+      - name: source_name
+        tests:
+          - not_null
