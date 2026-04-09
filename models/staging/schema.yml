@@ -3,15 +3,22 @@ version: 2
 models:
   - name: stg_weather_forecast_raw
     description: Normaliza la tabla raw unica y extrae atributos desde columnas JSON.
+    tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          arguments:
+            min_value: 1
     columns:
       - name: _airbyte_raw_id
+        description: Identificador tecnico generado por Airbyte para cada registro raw.
         tests:
           - not_null
           - unique
       - name: datetime_id
+        description: Identificador temporal del pronostico derivado desde `dt`.
         tests:
           - not_null
       - name: forecast_datetime
+        description: Fecha y hora exacta del pronostico.
         tests:
           - not_null
 
@@ -19,10 +26,12 @@ models:
     description: Dimension de fecha y hora derivada desde la tabla raw.
     columns:
       - name: datetime_id
+        description: Clave primaria temporal derivada desde el timestamp del pronostico.
         tests:
           - not_null
           - unique
       - name: forecast_datetime
+        description: Timestamp normalizado del pronostico.
         tests:
           - not_null
 
@@ -30,10 +39,12 @@ models:
     description: Catalogo de condiciones meteorologicas derivado desde la tabla raw.
     columns:
       - name: weather_condition_sk
+        description: Clave surrogate de la condicion meteorologica.
         tests:
           - not_null
           - unique
       - name: weather_api_id
+        description: Identificador de condicion entregado por la API meteorologica.
         tests:
           - not_null
 
@@ -41,6 +52,7 @@ models:
     description: Catalogo del periodo del dia derivado desde la tabla raw.
     columns:
       - name: pod_code
+        description: Codigo del periodo del dia entregado por la API (`d` o `n`).
         tests:
           - not_null
           - unique
@@ -49,10 +61,12 @@ models:
     description: Hecho de pronostico derivado desde la tabla raw ya normalizada.
     columns:
       - name: forecast_id
+        description: Clave primaria tecnica de cada evento de pronostico.
         tests:
           - not_null
           - unique
       - name: datetime_id
+        description: Clave foranea hacia la dimension de fecha y hora.
         tests:
           - not_null
           - relationships:
@@ -60,6 +74,7 @@ models:
                 to: ref('stg_dim_datetime')
                 field: datetime_id
       - name: weather_condition_sk
+        description: Clave foranea hacia la dimension de condicion meteorologica.
         tests:
           - not_null
           - relationships:
@@ -67,6 +82,7 @@ models:
                 to: ref('stg_dim_weather_condition')
                 field: weather_condition_sk
       - name: pod_code
+        description: Clave foranea hacia la dimension de periodo del dia.
         tests:
           - not_null
           - relationships:
@@ -76,12 +92,18 @@ models:
 
   - name: stg_newsapi_raw
     description: Normaliza la tabla raw unica de NewsAPI y extrae atributos base.
+    tests:
+      - dbt_expectations.expect_table_row_count_to_be_between:
+          arguments:
+            min_value: 1
     columns:
       - name: _airbyte_raw_id
+        description: Identificador tecnico generado por Airbyte para cada articulo raw.
         tests:
           - not_null
           - unique
       - name: article_sk
+        description: Clave primaria tecnica derivada desde la URL o el identificador raw.
         tests:
           - not_null
           - unique
@@ -90,17 +112,23 @@ models:
     description: Dimension de articulo derivada desde la tabla raw de NewsAPI.
     columns:
       - name: article_sk
+        description: Clave primaria del articulo.
         tests:
           - not_null
           - unique
       - name: url
+        description: URL original del articulo en la fuente de noticias.
         tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              arguments:
+                regex: "^https?://"
 
   - name: stg_newsapi_dim_source
     description: Dimension de fuente derivada desde la tabla raw de NewsAPI.
     columns:
       - name: source_sk
+        description: Clave primaria tecnica de la fuente periodistica.
         tests:
           - not_null
           - unique
@@ -109,6 +137,7 @@ models:
     description: Dimension de autor derivada desde la tabla raw de NewsAPI.
     columns:
       - name: author_sk
+        description: Clave primaria tecnica del autor.
         tests:
           - not_null
           - unique
@@ -117,18 +146,28 @@ models:
     description: Dimension de fecha y hora de publicacion derivada desde la tabla raw de NewsAPI.
     columns:
       - name: published_datetime_sk
+        description: Clave primaria tecnica asociada a la fecha de publicacion.
         tests:
           - not_null
           - unique
+      - name: published_year
+        description: Anio de publicacion del articulo.
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              arguments:
+                min_value: 2000
+                max_value: 2100
 
   - name: stg_newsapi_fct_news_articles
     description: Hecho de articulos derivado desde la tabla raw de NewsAPI.
     columns:
       - name: article_event_sk
+        description: Clave primaria del evento de carga del articulo.
         tests:
           - not_null
           - unique
       - name: article_sk
+        description: Clave foranea hacia la dimension de articulo.
         tests:
           - not_null
           - relationships:
@@ -136,6 +175,7 @@ models:
                 to: ref('stg_newsapi_dim_article')
                 field: article_sk
       - name: source_sk
+        description: Clave foranea hacia la dimension de fuente.
         tests:
           - not_null
           - relationships:
@@ -143,12 +183,14 @@ models:
                 to: ref('stg_newsapi_dim_source')
                 field: source_sk
       - name: author_sk
+        description: Clave foranea hacia la dimension de autor.
         tests:
           - relationships:
               arguments:
                 to: ref('stg_newsapi_dim_author')
                 field: author_sk
       - name: published_datetime_sk
+        description: Clave foranea hacia la dimension de fecha de publicacion.
         tests:
           - relationships:
               arguments:

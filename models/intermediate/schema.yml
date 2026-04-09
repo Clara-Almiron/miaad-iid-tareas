@@ -5,15 +5,19 @@ models:
     description: Modelo intermedio que une el hecho de noticias con sus dimensiones para analisis posterior.
     columns:
       - name: article_event_sk
+        description: Identificador unico del evento de articulo enriquecido.
         tests:
           - not_null
           - unique
       - name: article_sk
+        description: Clave del articulo original.
         tests:
           - not_null
       - name: title
+        description: Titulo del articulo listo para consumo analitico.
         tests:
           - not_null
       - name: source_name
+        description: Nombre de la fuente periodistica.
         tests:
           - not_null

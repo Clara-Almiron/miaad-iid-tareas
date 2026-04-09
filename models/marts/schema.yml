@@ -5,15 +5,25 @@ models:
     description: One Big Table final para analisis de articulos de NewsAPI.
     columns:
       - name: article_event_sk
+        description: Identificador unico del evento final en la tabla analitica.
         tests:
           - not_null
           - unique
       - name: title
+        description: Titulo del articulo.
         tests:
           - not_null
       - name: source_name
+        description: Medio o fuente desde la que se obtuvo la noticia.
         tests:
           - not_null
       - name: publication_period
+        description: Franja horaria derivada a partir de la hora de publicacion.
         tests:
           - not_null
+          - accepted_values:
+              arguments:
+                values: ['morning', 'afternoon', 'evening', 'night']
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              arguments:
+                value_set: ['morning', 'afternoon', 'evening', 'night']

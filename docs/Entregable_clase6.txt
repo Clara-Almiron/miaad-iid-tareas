@@ -1,0 +1,10 @@
+Entregable
+Actualizar tu repositorio Git con:
+1. dbt-expectations instalado (packages.yml + dbt deps)
+2. Al menos 5 tests genéricos (unique, not_null, etc.)
+3. Al menos 3 tests de dbt-expectations
+4. Al menos 2 singular tests personalizados
+5. Documentación de todos los modelos y columnas clave
+6. Captura del DAG con documentación generada
+
+Todos los tests deben pasar con dbt build
